@@ -7,7 +7,7 @@ let numBubbles = 10; // Set the number of bubbles
 let bubbles = []; // Create an array to store the bubble properties
 let MAN = 0;
 let Z = 0;
-let x = -2000;
+let x; // Fish's x position
 let xEND;
 let frequency = 0.01; // Adjust this value to change the frequency of the sine wave
 let amplitude; // Adjust this value to change the amplitude of the sine wave
@@ -20,6 +20,7 @@ let alpha = 0; // Alpha value for the image (0 to 255)
 let fadingIn = true; // Flag to control fading direction
 let fadeSpeed = 2; // Speed of fading
 
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
@@ -31,49 +32,38 @@ function setup() {
     bubbles.push({
       x: random(width),
       y: random(height),
-      wiggle: 0,
+      wiggle: 0
     });
   }
-
+  
   xEND = width / 2 - 100;
   amplitude = height / 20;
 
-  // Initialize fish speed and color
-  fishSpeed = random(20, 50);
-  fishColor = color(random(255), random(255), random(255));
+  // Initialize fish position, speed, and color
+  resetFish();
+}
+
+function resetFish() {
+  x = -500; // Start fish completely off the left side
+  startY = random(-200, 200);
+  fishSpeed = random(20, 40); // Assign a new random speed
+  fishColor = color(random(255), random(255), random(255)); // Assign a new random color
 }
 
 function fished() {
   Z = Z + 0.1;
   let y = sin(Z) * (amplitude * 0.4) + startY;
   fill(fishColor);
-  triangle(
-    width / 2 + x,
-    height / 2 + y,
-    xEND + x,
-    height / 2 - 100 + y,
-    xEND + x,
-    height / 2 + 100 + y
-  );
+  triangle(width / 2 + x, height / 2 + y, xEND + x, height / 2 - 100 + y, xEND + x, height / 2 + 100 + y);
   ellipse(width / 2 - 50 + x, height / 2 + y, 300, 100);
-  triangle(
-    width / 2 - 100 + x,
-    height / 2 + y,
-    width / 2 - 200 + x,
-    height / 2 - 75 + y,
-    width / 2 - 200 + x,
-    height / 2 + 75 + y
-  );
+  triangle(width / 2 - 100 + x, height / 2 + y, width / 2 - 200 + x, height / 2 - 75 + y, width / 2 - 200 + x, height / 2 + 75 + y);
   fill(255);
   ellipse(width / 2 + 50 + x, height / 2 + y, 10, 10);
   ellipse(width / 2 - 20 + x, height / 2 + y, 10, 10);
   x = x + fishSpeed;
 
   if (x > width) {
-    x = -2000; // Reset the x value to its initial value
-    startY = random(-200, 200);
-    fishSpeed = random(20, 50); // Assign a new random speed
-    fishColor = color(random(255), random(255), random(255)); // Assign a new random color
+    resetFish(); // Reset the fish's position, speed, and color
   }
 }
 
@@ -98,6 +88,7 @@ function draw() {
     fill(c, c, 230);
     rect(0, y, width, 1);
   }
+
 
   bubblO();
   fished();
