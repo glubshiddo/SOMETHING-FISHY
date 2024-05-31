@@ -7,7 +7,7 @@ let numBubbles = 10; // Set the number of bubbles
 let bubbles = []; // Create an array to store the bubble properties
 let MAN = 0;
 let Z = 0;
-let x = -1500;
+let x = -2000;
 let xEND;
 let frequency = 0.01; // Adjust this value to change the frequency of the sine wave
 let amplitude; // Adjust this value to change the amplitude of the sine wave
@@ -39,7 +39,7 @@ function setup() {
   amplitude = height / 20;
 
   // Initialize fish speed and color
-  fishSpeed = random(1, 5);
+  fishSpeed = random(20, 50);
   fishColor = color(random(255), random(255), random(255));
 }
 
@@ -70,7 +70,7 @@ function fished() {
   x = x + fishSpeed;
 
   if (x > width) {
-    x = -1500; // Reset the x value to its initial value
+    x = -2000; // Reset the x value to its initial value
     startY = random(-200, 200);
     fishSpeed = random(20, 50); // Assign a new random speed
     fishColor = color(random(255), random(255), random(255)); // Assign a new random color
